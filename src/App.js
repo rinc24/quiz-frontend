@@ -1,24 +1,53 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import MainMenuScreen from './components/MainMenuScreen';
+import GameScreen from './components/GameScreen';
+import PurchaseScreen from './components/PurchaseScreen';
+import ApiService from './services/api';
 import './App.css';
 
+/**
+ * Упрощенный главный компонент приложения
+ * Минимальная логика навигации между экранами
+ */
 function App() {
+  const [screen, setScreen] = useState('menu');
+  const [contentPack, setContentPack] = useState(null);
+  const [contentPacks, setContentPacks] = useState([]);
+
+  useEffect(() => {
+    ApiService.fetchContentPacks().then(setContentPacks).catch(() => setContentPacks([]));
+  }, []);
+
+  const startGame = async (packSlug) => {
+    const pack = await ApiService.fetchContentPack(packSlug);
+    if (pack) {
+      setContentPack(pack);
+      setScreen('game');
+    }
+  };
+
+  const goToMenu = () => {
+    setScreen('menu');
+    setContentPack(null);
+  };
+
+  const goToPurchase = () => setScreen('purchase');
+
+  if (screen === 'game') {
+    return <GameScreen contentPack={contentPack} onBack={goToMenu} />;
+  }
+
+  if (screen === 'purchase') {
+    return <PurchaseScreen onBack={goToMenu} onPurchase={goToMenu} />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MainMenuScreen 
+      onStartGame={startGame}
+      onPurchase={goToPurchase}
+      contentPacks={contentPacks}
+      loading={contentPacks.length === 0}
+    />
   );
 }
 

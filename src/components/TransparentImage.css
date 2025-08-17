@@ -1,0 +1,119 @@
+/**
+ * TransparentImage Component Styles
+ * Прозрачные PNG изображения без контейнеров, рамок и декораций
+ */
+
+.transparent-image {
+  /* Абсолютно никаких стилей контейнера */
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+  display: block;
+}
+
+.transparent-image__img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  transition: transform 150ms ease;
+  display: block;
+  /* Убираем любые артефакты */
+  border: none;
+  outline: none;
+  box-shadow: none;
+  /* Оптимизация для производительности */
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Минимальная обратная связь при нажатии */
+.transparent-image:active .transparent-image__img {
+  transform: scale(0.95);
+}
+
+/* Анимация правильного ответа - простое увеличение */
+.transparent-image--correct .transparent-image__img {
+  animation: correct-pulse 400ms ease;
+  will-change: transform;
+}
+
+/* Анимация неправильного ответа - простая тряска */
+.transparent-image--incorrect .transparent-image__img {
+  animation: incorrect-shake 300ms ease;
+  will-change: transform;
+}
+
+/* Анимации - оптимизированы для производительности */
+@keyframes correct-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    will-change: auto; /* Сброс will-change после анимации */
+  }
+}
+
+@keyframes incorrect-shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+  100% {
+    will-change: auto; /* Сброс will-change после анимации */
+  }
+}
+
+/* Адаптивные размеры для разных экранов */
+@media (max-width: 480px) {
+  .transparent-image__img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (min-width: 768px) {
+  .transparent-image__img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .transparent-image__img {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* Убираем анимации при настройке reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .transparent-image__img {
+    transition: none;
+  }
+  
+  .transparent-image--correct .transparent-image__img,
+  .transparent-image--incorrect .transparent-image__img {
+    animation: none;
+  }
+}
+
+/* Обеспечиваем минимальную область нажатия для сенсорного управления */
+.transparent-image {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

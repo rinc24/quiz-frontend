@@ -1,0 +1,174 @@
+/**
+ * GameScreen Component Styles
+ * Ультра-минималистичный дизайн - только фон-градиент, иконка и изображения
+ */
+
+.game-screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b); /* Простой теплый градиент */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* Убираем все отступы */
+}
+
+/* Минималистичная кнопка назад */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2); /* Максимально прозрачная */
+  border: none;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 200ms ease, transform 150ms ease;
+  opacity: 0.6; /* Едва заметная */
+  z-index: 10; /* Поверх других элементов */
+  
+  /* Минимальная обратная связь */
+  &:hover {
+    opacity: 0.8;
+  }
+  
+  &:active {
+    opacity: 1;
+    transform: scale(0.95);
+  }
+  
+  /* Обеспечиваем минимальную область касания для мобильных */
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Минималистичный индикатор прогресса */
+.progress-indicator {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.7;
+  z-index: 10;
+  pointer-events: none; /* Не мешает взаимодействию */
+}
+
+/* Сообщение о завершении теста */
+.completion-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.completion-text {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  animation: completion-bounce 0.6s ease-out;
+}
+
+.completion-subtext {
+  font-size: 24px;
+  font-weight: 500;
+  opacity: 0.8;
+  animation: completion-fade-in 0.8s ease-out 0.3s both;
+}
+
+@keyframes completion-bounce {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes completion-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+}
+
+/* Адаптивные размеры для мобильных */
+@media (max-width: 480px) {
+  .completion-text {
+    font-size: 36px;
+  }
+  
+  .completion-subtext {
+    font-size: 18px;
+  }
+}
+
+.choice-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px; /* Фиксированный отступ */
+  
+  /* Portrait - вертикально */
+  flex-direction: column;
+}
+
+/* Landscape - горизонтально */
+@media (orientation: landscape) {
+  .choice-container {
+    flex-direction: row;
+    gap: 80px;
+  }
+}
+
+/* Адаптивные отступы для мобильных устройств */
+@media (max-width: 480px) {
+  .choice-container {
+    gap: 40px;
+  }
+}
+
+@media (min-width: 768px) and (orientation: landscape) {
+  .choice-container {
+    gap: 100px;
+  }
+}
+
+/* Убираем анимации при настройке reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .game-screen {
+    background: #fbbf24; /* Fallback to solid color */
+  }
+}
+
+/* Высокий контраст */
+@media (prefers-contrast: high) {
+  .game-screen {
+    background: linear-gradient(135deg, #000080 0%, #000040 100%);
+  }
+}

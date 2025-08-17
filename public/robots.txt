@@ -1,3 +1,7 @@
+# Развивающие игры для детей
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap (если будет добавлен)
+# Sitemap: https://yourdomain.com/sitemap.xml

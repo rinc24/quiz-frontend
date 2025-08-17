@@ -1,0 +1,242 @@
+/* Ультра-минималистичный MainMenuScreen с изображениями категорий */
+
+.main-menu {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.loading-text {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Кнопки с изображениями категорий */
+.category-button {
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 200ms ease, opacity 200ms ease, background 200ms ease;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.category-button__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+}
+
+.category-button__text {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.category-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.category-button:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.category-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.category-button--locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.category-button--locked:hover {
+  transform: none;
+}
+
+/* Прозрачные изображения категорий */
+.category-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  background: none;
+  border: none;
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Оверлей с замком для заблокированных категорий */
+.lock-overlay {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 18px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Текстовая кнопка "Больше игр" */
+.menu-button {
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  transition: background 200ms ease;
+  min-height: 44px;
+}
+
+.menu-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.menu-button:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.menu-button--purchase {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.menu-button--purchase:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Адаптивность для разных экранов */
+@media (orientation: landscape) {
+  .menu-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 600px;
+    gap: 30px;
+  }
+  
+  .category-image {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .category-button__text {
+    font-size: 14px;
+  }
+  
+  .menu-button {
+    flex: 1;
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-menu {
+    padding: 16px;
+  }
+  
+  .menu-buttons {
+    max-width: 320px;
+    gap: 20px;
+  }
+  
+  .category-button {
+    padding: 12px;
+  }
+  
+  .category-image {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .category-button__text {
+    font-size: 14px;
+  }
+  
+  .lock-overlay {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    top: 8px;
+    right: 8px;
+  }
+  
+  .menu-button {
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 768px) {
+  .category-image {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .category-button__text {
+    font-size: 18px;
+  }
+  
+  .category-button {
+    padding: 20px;
+  }
+  
+  .menu-buttons {
+    gap: 40px;
+  }
+}
+
+/* Дополнительная адаптивность для очень маленьких экранов */
+@media (max-width: 360px) {
+  .category-image {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .menu-buttons {
+    gap: 20px;
+  }
+  
+  .lock-overlay {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+}
